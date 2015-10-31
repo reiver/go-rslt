@@ -22,7 +22,7 @@ func Wrap(args ...interface{}) Result {
 			reflectedValue := reflect.ValueOf(arg)
 
 			switch reflectedValue.Kind() {
-			case reflect.Func, reflect.Map, reflect.Ptr, reflect.Slice:
+			case reflect.Chan, reflect.Func, reflect.Map, reflect.Ptr, reflect.Slice:
 				if !reflectedValue.IsNil() {
 					value = arg
 				}
