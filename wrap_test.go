@@ -1100,6 +1100,60 @@ func TestWrapNil(t *testing.T) {
 				return result
 			},
 		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (interface{}, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, interface{}) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (interface{Pow()}, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, interface{Pow()}) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
 	}
 
 
