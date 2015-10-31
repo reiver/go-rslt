@@ -4,6 +4,7 @@ package rslt
 import (
 	"testing"
 
+	"errors"
 	"reflect"
 )
 
@@ -167,7 +168,7 @@ func TestWrapValue(t *testing.T) {
 				return result
 			},
 		},
- 	}
+	}
 
 
 	for testNumber, test := range tests {
@@ -197,6 +198,199 @@ func TestWrapValue(t *testing.T) {
 			continue
 		} else if actualValue := value; test.ExpectedValue != actualValue {
 			t.Errorf("For test #%d, expected value returned from Result to be %v, but actually was %v.", testNumber, test.ExpectedValue, actualValue)
+		}
+
+	}
+}
+
+
+func TestWrapError(t *testing.T) {
+
+
+	err1 := errors.New("The error!")
+
+
+	tests := []struct {
+		ExpectedErr  error
+		ExpectedKind reflect.Kind
+		Fn           func()Result
+	}{
+		{
+			ExpectedErr:  err1,
+			ExpectedKind: reflect.Bool,
+			Fn: func() Result {
+
+				fn := func() (bool, error) {
+					return false, err1
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			ExpectedErr:  err1,
+			ExpectedKind: reflect.Bool,
+			Fn: func() Result {
+
+				fn := func() (error, bool) {
+					return err1, false
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			ExpectedErr:  err1,
+			ExpectedKind: reflect.Bool,
+			Fn: func() Result {
+
+				fn := func() (bool, error) {
+					return true, err1
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			ExpectedErr:  err1,
+			ExpectedKind: reflect.Bool,
+			Fn: func() Result {
+
+				fn := func() (error, bool) {
+					return err1, true
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			ExpectedErr:  err1,
+			ExpectedKind: reflect.Int,
+			Fn: func() Result {
+
+				fn := func() (int, error) {
+					return 5, err1
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			ExpectedErr:  err1,
+			ExpectedKind: reflect.Int,
+			Fn: func() Result {
+
+				fn := func() (error, int) {
+					return err1, 5
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			ExpectedErr:  err1,
+			ExpectedKind: reflect.String,
+			Fn: func() Result {
+
+				fn := func() (string, error) {
+					return "five", err1
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			ExpectedErr:  err1,
+			ExpectedKind: reflect.String,
+			Fn: func() Result {
+
+				fn := func() (error, string) {
+					return err1, "five"
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			ExpectedErr:  err1,
+			ExpectedKind: reflect.Float64,
+			Fn: func() Result {
+
+				fn := func() (float64, error) {
+					return 5.0, err1
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			ExpectedErr:  err1,
+			ExpectedKind: reflect.Float64,
+			Fn: func() Result {
+
+				fn := func() (error, float64) {
+					return err1, 5.0
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+	}
+
+
+	for testNumber, test := range tests {
+
+		result := test.Fn()
+
+		if _, ok := result.(Value); ok {
+			t.Errorf("For test #%d, did not expect Result to be a Value but was.", testNumber)
+			continue
+		}
+		if _, ok := result.(Nil); ok {
+			t.Errorf("For test #%d, did not expect Result to be Nil but was.", testNumber)
+			continue
+		}
+
+		if _, ok := result.(Error); !ok {
+			t.Errorf("For test #%d, expected Result to be an Error but wasn't; actually was: %T", testNumber, result)
+			continue
+		} else if _, err, _ := result.Result(); nil == err {
+			t.Errorf("For test #%d, expected error returned from Result to not be nil, but actually was %v.", testNumber, err)
+			continue
+		} else if actualErr := err; test.ExpectedErr != actualErr {
+			t.Errorf("For test #%d, expected error returned from Result to be %v, but actually was %v.", testNumber, test.ExpectedErr, actualErr)
 		}
 
 	}
