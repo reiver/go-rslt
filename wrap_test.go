@@ -593,6 +593,60 @@ func TestWrapNil(t *testing.T) {
 		{
 			Fn: func() Result {
 
+				fn := func() (*float32, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, *float32) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (*float64, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, *float64) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
 				fn := func() (*int, error) {
 					return nil, nil
 				}
@@ -606,6 +660,114 @@ func TestWrapNil(t *testing.T) {
 			Fn: func() Result {
 
 				fn := func() (error, *int) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (*int8, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, *int8) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (*int16, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, *int16) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (*int32, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, *int32) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (*int64, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, *int64) {
 					return nil, nil
 				}
 
@@ -647,7 +809,7 @@ func TestWrapNil(t *testing.T) {
 		{
 			Fn: func() Result {
 
-				fn := func() (*float64, error) {
+				fn := func() ([]bool, error) {
 					return nil, nil
 				}
 
@@ -659,7 +821,196 @@ func TestWrapNil(t *testing.T) {
 		{
 			Fn: func() Result {
 
-				fn := func() (error, *float64) {
+				fn := func() (error, []bool) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() ([]float32, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, []float32) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() ([]float64, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, []float64) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() ([]int, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, []int) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() ([]int8, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, []int8) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() ([]int16, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, []int16) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() ([]int32, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, []int32) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() ([]int64, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, []int64) {
 					return nil, nil
 				}
 
