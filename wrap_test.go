@@ -1019,6 +1019,87 @@ func TestWrapNil(t *testing.T) {
 				return result
 			},
 		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (map[string]string, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, map[string]string) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (map[string]interface{}, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, map[string]interface{}) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (map[int]string, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, map[int]string) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
 	}
 
 
