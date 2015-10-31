@@ -1154,6 +1154,60 @@ func TestWrapNil(t *testing.T) {
 				return result
 			},
 		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (func(), error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, func()) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (func(string)bool, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, func(string)bool) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
 	}
 
 
