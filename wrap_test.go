@@ -11,6 +11,12 @@ import (
 
 func TestWrapValue(t *testing.T) {
 
+	bfalse      := false
+	btrue       := true
+	i5          := 5
+	sFive       := "five"
+	f64FiveZero := 5.0
+
 	tests := []struct {
 		ExpectedValue interface{}
 		ExpectedKind  reflect.Kind
@@ -37,6 +43,37 @@ func TestWrapValue(t *testing.T) {
 
 				fn := func() (error, bool) {
 					return nil, false
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			ExpectedValue: &bfalse,
+			ExpectedKind: reflect.Ptr,
+			Fn: func() Result {
+
+				fn := func() (*bool, error) {
+					return &bfalse, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			ExpectedValue: &bfalse,
+			ExpectedKind: reflect.Ptr,
+			Fn: func() Result {
+
+				fn := func() (error, *bool) {
+					return nil, &bfalse
 				}
 
 				result := Wrap(fn())
@@ -79,6 +116,37 @@ func TestWrapValue(t *testing.T) {
 
 
 		{
+			ExpectedValue: &btrue,
+			ExpectedKind: reflect.Ptr,
+			Fn: func() Result {
+
+				fn := func() (*bool, error) {
+					return &btrue, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			ExpectedValue: &btrue,
+			ExpectedKind: reflect.Ptr,
+			Fn: func() Result {
+
+				fn := func() (error, *bool) {
+					return nil, &btrue
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
 			ExpectedValue: 5,
 			ExpectedKind: reflect.Int,
 			Fn: func() Result {
@@ -99,6 +167,37 @@ func TestWrapValue(t *testing.T) {
 
 				fn := func() (error, int) {
 					return nil, 5
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			ExpectedValue: &i5,
+			ExpectedKind: reflect.Ptr,
+			Fn: func() Result {
+
+				fn := func() (*int, error) {
+					return &i5, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			ExpectedValue: &i5,
+			ExpectedKind: reflect.Ptr,
+			Fn: func() Result {
+
+				fn := func() (error, *int) {
+					return nil, &i5
 				}
 
 				result := Wrap(fn())
@@ -141,6 +240,37 @@ func TestWrapValue(t *testing.T) {
 
 
 		{
+			ExpectedValue: &sFive,
+			ExpectedKind: reflect.Ptr,
+			Fn: func() Result {
+
+				fn := func() (*string, error) {
+					return &sFive, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			ExpectedValue: &sFive,
+			ExpectedKind: reflect.Ptr,
+			Fn: func() Result {
+
+				fn := func() (error, *string) {
+					return nil, &sFive
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
 			ExpectedValue: 5.0,
 			ExpectedKind: reflect.Float64,
 			Fn: func() Result {
@@ -161,6 +291,37 @@ func TestWrapValue(t *testing.T) {
 
 				fn := func() (error, float64) {
 					return nil, 5.0
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			ExpectedValue: &f64FiveZero,
+			ExpectedKind: reflect.Ptr,
+			Fn: func() Result {
+
+				fn := func() (*float64, error) {
+					return &f64FiveZero, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			ExpectedValue: &f64FiveZero,
+			ExpectedKind: reflect.Ptr,
+			Fn: func() Result {
+
+				fn := func() (error, *float64) {
+					return nil, &f64FiveZero
 				}
 
 				result := Wrap(fn())
@@ -391,6 +552,147 @@ func TestWrapError(t *testing.T) {
 			continue
 		} else if actualErr := err; test.ExpectedErr != actualErr {
 			t.Errorf("For test #%d, expected error returned from Result to be %v, but actually was %v.", testNumber, test.ExpectedErr, actualErr)
+		}
+
+	}
+}
+
+
+func TestWrapNil(t *testing.T) {
+
+	tests := []struct {
+		Fn func()Result
+	}{
+		{
+			Fn: func() Result {
+
+				fn := func() (*bool, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, *bool) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (*int, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, *int) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (*string, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, *string) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+
+
+
+		{
+			Fn: func() Result {
+
+				fn := func() (*float64, error) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+		{
+			Fn: func() Result {
+
+				fn := func() (error, *float64) {
+					return nil, nil
+				}
+
+				result := Wrap(fn())
+
+				return result
+			},
+		},
+	}
+
+
+	for testNumber, test := range tests {
+
+		result := test.Fn()
+
+		if value, ok := result.(Value); ok {
+			t.Errorf("For test #%d, did not expect Result to be a Value but was. %T %#v", testNumber, value, value.(*internalValue).value)
+			continue
+		}
+
+		if _, ok := result.(Error); ok {
+			t.Errorf("For test #%d, did not expect Result to be an Error but was.", testNumber)
+			continue
+		}
+		if _, ok := result.(Nil); !ok {
+			t.Errorf("For test #%d, expected Result to be Nil but wasn't; actually was: %T", testNumber, result)
+			continue
+		} else if value, _, warning := result.Result(); nil != value {
+			t.Errorf("For test #%d, expected value returned from Result to be nil, but actually was %v.", testNumber, value)
+			continue
+		} else if nil != warning {
+			t.Errorf("For test #%d, expected warning returned from Result to be nil, but actually was %v.", testNumber, warning)
+			continue
 		}
 
 	}

@@ -1,6 +1,11 @@
 package rslt
 
 
+import (
+	"reflect"
+)
+
+
 // Wrap returns a Result.
 func Wrap(args ...interface{}) Result {
 
@@ -12,8 +17,16 @@ func Wrap(args ...interface{}) Result {
 			return newError(err)
 		} else if warn, ok := arg.(Warning); ok {
 			warning = warn
-		} else {
-			if nil != arg {
+		} else if nil == value {
+//@TODO: Is there no better way to check if something is nil (regardless of the type)?
+			reflectedValue := reflect.ValueOf(arg)
+
+			switch reflectedValue.Kind() {
+			case reflect.Ptr:
+				if !reflectedValue.IsNil() {
+					value = arg
+				}
+			default:
 				value = arg
 			}
 		}
